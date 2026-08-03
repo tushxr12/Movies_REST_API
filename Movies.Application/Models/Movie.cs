@@ -15,6 +15,8 @@ public partial class Movie
 
     private string GenerateSlug()
     {
+        if(string.IsNullOrWhiteSpace(Title))
+            return string.Empty;
         var sluggedTitle = SlugRegex().Replace(Title, string.Empty).ToLower().Replace(" ", "-");
         return $"{sluggedTitle}-{YearOfRelease}";
     }

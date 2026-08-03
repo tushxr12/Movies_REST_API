@@ -1,8 +1,6 @@
-﻿using Movies.Application.Models;
+using Movies.Application.Models;
 
-namespace Movies.Application.Repositories;
-
-public interface IMovieRepository
+public interface IMovieService
 {
     Task<bool> CreateAsync(Movie movie, CancellationToken token = default);
     
@@ -12,9 +10,7 @@ public interface IMovieRepository
     
     Task<IEnumerable<Movie>> GetAllAsync(CancellationToken token = default);
     
-    Task<bool> UpdateAsync(Movie movie, CancellationToken token = default);
+    Task<Movie?> UpdateAsync(Movie movie, CancellationToken token = default);
     
     Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
-
-    Task<bool> ExistsByIdAsync(Guid id, CancellationToken token = default);
 }
