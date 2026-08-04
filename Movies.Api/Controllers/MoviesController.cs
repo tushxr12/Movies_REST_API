@@ -2,9 +2,11 @@
 using Movies.Api.Mapping;
 using Movies.Application.Repositories;
 using Movies.Contracts.Requests;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Movies.Api.Controllers;
 
+// [Authorize]
 [ApiController]
 public class MoviesController : ControllerBase
 {
@@ -15,6 +17,7 @@ public class MoviesController : ControllerBase
         _movieService = movieService;
     }
 
+    [Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPost(ApiEndpoints.Movies.Create)]
     public async Task<IActionResult> Create([FromBody]CreateMovieRequest request, CancellationToken token)
     {
@@ -46,6 +49,7 @@ public class MoviesController : ControllerBase
         return Ok(moviesResponse);
     }
 
+    [Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPut(ApiEndpoints.Movies.Update)]
     public async Task<IActionResult> Update([FromRoute]Guid id,
         [FromBody]UpdateMovieRequest request, CancellationToken token)
@@ -61,6 +65,7 @@ public class MoviesController : ControllerBase
         return Ok(response);
     }
 
+    [Authorize(AuthConstants.AdminUserPolicyName)]
     [HttpDelete(ApiEndpoints.Movies.Delete)]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
     {
